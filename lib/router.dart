@@ -6,6 +6,7 @@ import 'package:navigator/features/authentication/views/login_screen.dart';
 import 'package:navigator/features/authentication/views/sign_up_screen.dart';
 import 'package:navigator/features/onboarding/views/onboarding_screen.dart';
 import 'package:navigator/features/survey/views/survey_screen.dart';
+import 'package:navigator/features/users/views/mypage.dart';
 
 final GoRouter router = GoRouter(
   // initialLocation: "/home",
@@ -58,6 +59,11 @@ final GoRouter router = GoRouter(
           },
         );
       },
-    )
+    ),
+    GoRoute(
+      name: MyPageScreen.routeName,
+      path: MyPageScreen.routeURL,
+      builder: (context, state) => const MyPageScreen(),
+    ),
   ],
 );

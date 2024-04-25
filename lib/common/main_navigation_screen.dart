@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:navigator/features/authentication/views/login_screen.dart';
+import 'package:navigator/features/users/views/mypage.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   static const String routeName = "mainNavigation";
@@ -47,7 +48,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           IconButton(
             icon: const Icon(Icons.menu),
             onPressed: () {
-              // context.pushNamed(LoginScreen.routeName);
+              context.pushNamed(MyPageScreen.routeName);
             },
           ),
         ],
