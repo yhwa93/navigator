@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:navigator/features/authentication/widgets/form_button.dart';
-import 'package:navigator/features/home/home_screen.dart';
+import 'package:navigator/features/home/views/home_screen.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({super.key});
@@ -11,14 +11,14 @@ class LoginFormScreen extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginFormScreen> {
-  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   Map<String, String> formData = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('로그인'),
+        title: const Text('로그인'),
         leading: const BackButton(
           color: Colors.black,
         ),
@@ -61,12 +61,12 @@ class _LoginFormState extends State<LoginFormScreen> {
                         if (newValue != null) {formData['password'] = newValue}
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     GestureDetector(
                       onTap: () => context.go(HomeScreen.routeURL),
-                      child: FormButton(disabled: false),
+                      child: const FormButton(disabled: false),
                     ),
                   ],
                 ),

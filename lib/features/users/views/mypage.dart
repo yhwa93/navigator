@@ -12,8 +12,8 @@ class MyPageScreen extends StatefulWidget {
 class _MyPageScreenState extends State<MyPageScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text('마이페이지'),
+    return const Scaffold(
+      body: Text('Mypage'),
     );
   }
 }

@@ -37,13 +37,13 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
-      path: "/:tab(calendar|home|contents|users)",
+      path: "/:tab(calendar|home|contents|mypage)",
       name: MainNavigationScreen.routeName,
       pageBuilder: (context, state) {
         final tab = state.pathParameters['tab']!;
 
         return CustomTransitionPage(
-          transitionDuration: Duration(
+          transitionDuration: const Duration(
             milliseconds: 200,
           ),
           child: MainNavigationScreen(tab: tab),

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:navigator/features/authentication/views/login_screen.dart';
+import 'package:navigator/features/calendar/views/calendar_screen.dart';
+import 'package:navigator/features/contents/views/contents_screen.dart';
+import 'package:navigator/features/home/views/home_screen.dart';
 import 'package:navigator/features/users/views/mypage.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   static const String routeName = "mainNavigation";
+
   final String tab;
+
   const MainNavigationScreen({
     super.key,
     required this.tab,
@@ -17,26 +21,29 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  final List<String> _tabs = ["calendar", "home", "contents"];
-  late int _selectedIndex = _tabs.indexOf(widget.tab);
-
-  final screens = [
-    Center(
-      child: Text('캘린더'),
-    ),
-    Center(
-      child: Text('홈'),
-    ),
-    Center(
-      child: Text('콘텐츠'),
-    ),
+  final List<String> _tabs = [
+    "calendar", 
+    "home", 
+    "contents",
   ];
+
+  late int _selectedIndex = _tabs.indexOf(widget.tab);
+  late bool _hideSidemenu = true;
 
   void _onTap(int index) {
     context.go("/${_tabs[index]}");
 
     setState(() {
       _selectedIndex = index;
+      _hideSidemenu = true;
+    });
+  }
+
+  void _onSidemenuTap(){
+    context.go("/mypage");
+
+    setState(() {
+      _hideSidemenu = false;
     });
   }
 
@@ -47,33 +54,51 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.menu),
-            onPressed: () {
-              context.pushNamed(MyPageScreen.routeName);
-            },
+            onPressed: _onSidemenuTap,
           ),
         ],
       ),
-      body: screens[_selectedIndex],
+      body: Stack(
+        children: [
+          Offstage(
+            offstage: _selectedIndex != 0,
+            child: const CalendarScreen(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 1,
+            child: const HomeScreen(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 2,
+            child: const ContentsScreen(),
+          ),
+           Offstage(
+            offstage: _hideSidemenu,
+            child: const MyPageScreen(),
+          )
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.green,
         currentIndex: _selectedIndex,
         onTap: _onTap,
-        // selectedItemColor: Theme.of(context).primaryColor,
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Theme.of(context).primaryColor,
+        showUnselectedLabels: false,
+        showSelectedLabels: false,
         items: const [
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.user),
             label: "캘린더",
-            backgroundColor: Colors.amber,
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.house),
             label: "홈",
-            backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.puzzlePiece),
             label: "콘텐츠",
-            backgroundColor: Colors.teal,
           ),
         ],
       ),

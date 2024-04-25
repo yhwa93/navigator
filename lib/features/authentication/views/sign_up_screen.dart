@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:navigator/features/authentication/widgets/form_button.dart';
-import 'package:navigator/features/home/home_screen.dart';
+import 'package:navigator/features/home/views/home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routeURL = "/signUp";
@@ -14,7 +14,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   Map<String, String> formData = {};
   bool isChecked = false;
   bool isAllChecked = false;
@@ -23,7 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('회원가입'),
+        title: const Text('회원가입'),
         leading: const BackButton(
           color: Colors.black,
         ),
