@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:navigator/common/widgets/video_config.dart';
 import 'package:navigator/features/authentication/views/login_form_screen.dart';
 import 'package:navigator/features/authentication/views/sign_up_screen.dart';
 
@@ -22,6 +24,27 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  bool _autoMute = videoConfig.autoMute;
+  bool _autoMute2 = videoConfig2.value;
+
+  @override
+  void initState() {
+    super.initState();
+
+    videoConfig.addListener(() {
+      setState(() {
+        _autoMute = videoConfig.autoMute;
+      });
+    });
+
+    //222
+    videoConfig2.addListener(() {
+      setState(() {
+        _autoMute2 = videoConfig2.value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,14 +52,32 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Center(
           child: Column(
             children: [
-              Text("로그인 방법 선택하기"),
+              GestureDetector(
+                onTap: () => videoConfig2.value = !videoConfig2.value,
+                child: Text(
+                  _autoMute2 ? 'config2: 온!' : 'config2: 오프!!',
+                  style: const TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () => videoConfig.toggleAutoMute(),
+                child: Text(
+                  _autoMute ? 'config1: 온!' : 'config1: 오프!!',
+                  style: const TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              const Text("로그인 방법 선택하기"),
               GestureDetector(
                 onTap: _onEmailTap,
-                child: Text(
+                child: const Text(
                   '이메일로 시작하기(이메일 로그인)',
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
@@ -44,12 +85,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   GestureDetector(
                     onTap: () => context.pushNamed(SignUpScreen.routeName),
-                    child: Text('회원가입'),
+                    child: const Text('회원가입'),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
-                  Text('비밀번호 찾기'),
+                  const Text('비밀번호 찾기'),
                 ],
               )
             ],

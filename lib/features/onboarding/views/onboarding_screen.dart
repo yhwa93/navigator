@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:navigator/common/widgets/video_config.dart';
 import 'package:navigator/features/authentication/views/login_form_screen.dart';
 import 'package:navigator/features/authentication/views/login_screen.dart';
+import 'package:provider/provider.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static const routeURL = "/";
@@ -17,7 +21,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LoginFormScreen(),
+        builder: (context) => const LoginFormScreen(),
       ),
     );
   }
@@ -29,10 +33,50 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: Center(
           child: Column(
             children: [
-              Text('온보딩 튜토리얼'),
+              const Text('온보딩 튜토리얼 -> config2 : '),
+              AnimatedBuilder(
+                animation: videoConfig2,
+                builder: (context, child) => SwitchListTile(
+                  value: videoConfig2.value,
+                  onChanged: (value) {
+                    videoConfig2.value = !videoConfig2.value;
+                  },
+                ),
+              ),
+              AnimatedBuilder(
+                animation: videoConfig,
+                builder: (context, child) => SwitchListTile(
+                  value: videoConfig.autoMute,
+                  onChanged: (value) {
+                    videoConfig.toggleAutoMute();
+                  },
+                ),
+              ),
               GestureDetector(
                 onTap: () => context.pushNamed(LoginScreen.routeName),
-                child: Text("시작하기(로그인하기) 👉"),
+                child: const Text("시작하기(로그인하기) 👉"),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: () => context.read<VideoConfig3>().toggleisMuted(),
+                child: Text(
+                  context.watch<VideoConfig3>().isMuted
+                      ? 'Provider: isMuted: TRUE'
+                      : 'Provider: isMuted: FALSE',
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () => context.read<VideoConfig3>().toggleAutoplay(),
+                child: Text(
+                  context.watch<VideoConfig3>().isAutoplay
+                      ? 'Provider: isAutoplay: TRUE'
+                      : 'Provider: isAutoplay: FALSE',
+                ),
               ),
             ],
           ),

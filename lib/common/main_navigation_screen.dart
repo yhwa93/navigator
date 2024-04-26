@@ -22,8 +22,8 @@ class MainNavigationScreen extends StatefulWidget {
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   final List<String> _tabs = [
-    "calendar", 
-    "home", 
+    "calendar",
+    "home",
     "contents",
   ];
 
@@ -39,7 +39,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     });
   }
 
-  void _onSidemenuTap(){
+  void _onSidemenuTap() {
     context.go("/mypage");
 
     setState(() {
@@ -72,14 +72,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             offstage: _selectedIndex != 2,
             child: const ContentsScreen(),
           ),
-           Offstage(
+          Offstage(
             offstage: _hideSidemenu,
             child: const MyPageScreen(),
           )
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.shifting,
         backgroundColor: Colors.green,
         currentIndex: _selectedIndex,
         onTap: _onTap,
@@ -89,7 +89,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         showSelectedLabels: false,
         items: const [
           BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.user),
+            icon: FaIcon(FontAwesomeIcons.calendar),
             label: "캘린더",
           ),
           BottomNavigationBarItem(
