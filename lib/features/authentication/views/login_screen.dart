@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:navigator/common/widgets/video_config.dart';
 import 'package:navigator/features/authentication/views/login_form_screen.dart';

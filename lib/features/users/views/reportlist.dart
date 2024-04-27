@@ -10,7 +10,7 @@ class ReportListScreen extends StatefulWidget {
 class _ReportListScreenState extends State<ReportListScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Text("리포트 리스트"),
     );
   }
